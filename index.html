@@ -302,10 +302,10 @@
     [data-theme="light"] ::-webkit-scrollbar-track{background:var(--clr-bg)}
 
     /* ===== Theme Toggle ===== */
-    .theme-toggle{width:44px;height:44px;border-radius:50%;border:1px solid var(--clr-border);
-      background:var(--clr-surface);cursor:pointer;display:grid;place-items:center;
-      font-size:1.2rem;transition:var(--transition);flex-shrink:0;margin-left:.5rem}
-    .theme-toggle:hover{border-color:var(--clr-accent);transform:scale(1.1)}
+     .theme-toggle{width:44px;height:44px;border-radius:50%;border:1px solid rgba(108,99,255,.5);
+      background:rgba(108,99,255,.15);cursor:pointer;display:grid;place-items:center;
+      font-size:1.2rem;transition:var(--transition);flex-shrink:0;margin-left:.5rem;color:var(--clr-accent)}
+    .theme-toggle:hover{border-color:var(--clr-accent);background:rgba(108,99,255,.25);transform:scale(1.1)}
     .theme-toggle .icon-sun{display:none}
     .theme-toggle .icon-moon{display:block}
     [data-theme="light"] .theme-toggle .icon-sun{display:block}

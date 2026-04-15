@@ -218,6 +218,34 @@
       border:1px solid var(--clr-border);font-weight:500;transition:var(--transition)}
     .project-card__link:hover{border-color:var(--clr-accent);color:var(--clr-accent)}
 
+    /* ===== Resume ===== */
+    .resume__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .resume__col{display:flex;flex-direction:column;gap:2rem}
+    .resume__block{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);
+      padding:2rem;transition:var(--transition)}
+    .resume__block:hover{border-color:var(--clr-accent);box-shadow:0 8px 32px rgba(108,99,255,.1)}
+    .resume__block-title{font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;
+      padding-bottom:.75rem;border-bottom:1px solid var(--clr-border)}
+    .resume__entry{margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(42,42,58,.5)}
+    .resume__entry:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+    .resume__entry-date{font-family:var(--font-mono);font-size:.78rem;color:var(--clr-accent);margin-bottom:.2rem}
+    .resume__entry-title{font-weight:700;font-size:1rem;margin-bottom:.15rem}
+    .resume__entry-org{font-size:.9rem;color:var(--clr-accent-2);margin-bottom:.3rem}
+    .resume__entry-detail{font-size:.85rem;color:var(--clr-text-muted);line-height:1.6}
+    .resume__list{display:flex;flex-direction:column;gap:.6rem}
+    .resume__list li{font-size:.88rem;color:var(--clr-text-muted);padding-left:1.2rem;position:relative;line-height:1.6}
+    .resume__list li::before{content:'\25B8';position:absolute;left:0;color:var(--clr-accent);font-size:.75rem;top:2px}
+    .resume__skills-grid{display:flex;flex-direction:column;gap:.6rem}
+    .resume__skill-row{display:flex;gap:.75rem;font-size:.88rem;align-items:baseline}
+    .resume__skill-label{font-weight:600;color:var(--clr-accent);min-width:100px;font-size:.82rem;
+      font-family:var(--font-mono)}
+    .resume__skill-value{color:var(--clr-text-muted)}
+    .resume__project-group{font-size:1rem;font-weight:700;color:var(--clr-accent-2);
+      margin:1.2rem 0 .8rem;padding:.5rem .75rem;border-left:3px solid var(--clr-accent-2);
+      background:rgba(0,212,170,.06);border-radius:0 var(--radius) var(--radius) 0}
+    .resume__project-group:first-of-type{margin-top:0}
+    @media(max-width:900px){.resume__grid{grid-template-columns:1fr}}
+
     /* ===== Contact ===== */
     .contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
     .contact__info h3{font-size:1.5rem;font-weight:700;margin-bottom:1rem}
@@ -402,6 +430,7 @@
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
         <a href="#contact">Contact</a>
       </div>
       <div style="display:flex;align-items:center;gap:.5rem">
@@ -687,7 +716,7 @@
               <span class="skill-tag">BDD</span><span class="skill-tag">Wi-Fi 802.11</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
@@ -706,7 +735,7 @@
               <span class="skill-tag">Matter</span><span class="skill-tag">MQTT</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
@@ -725,7 +754,7 @@
               <span class="skill-tag">BLE</span><span class="skill-tag">bleak</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
@@ -744,7 +773,7 @@
               <span class="skill-tag">HL7</span><span class="skill-tag">IHE PCD</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
@@ -763,7 +792,7 @@
               <span class="skill-tag">RS232</span><span class="skill-tag">MQTT</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
@@ -782,10 +811,214 @@
               <span class="skill-tag">ACE Framework</span><span class="skill-tag">Serial</span>
             </div>
             <div class="project-card__links">
-              <a href="#" class="project-card__link">&#128279; Details</a>
+              <a href="#resume-projects" class="project-card__link">&#128279; Details</a>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Resume ===== -->
+  <section class="section" id="resume">
+    <div class="section__inner reveal">
+      <div class="section__badge">RESUME</div>
+      <h2 class="section__title">Full Resume &<br/><span class="gradient">Credentials</span></h2>
+      <p class="section__subtitle">A comprehensive overview of my education, certifications, experience, and achievements.</p>
+
+      <div class="resume__grid">
+        <!-- Left Column -->
+        <div class="resume__col">
+          <!-- Education -->
+          <div class="resume__block">
+            <h3 class="resume__block-title">&#127891; Education</h3>
+            <div class="resume__entry">
+              <div class="resume__entry-date">2016 — 2019</div>
+              <div class="resume__entry-title">Master of Computer Applications (MCA)</div>
+              <div class="resume__entry-org">National Institute of Technology Karnataka, Surathkal</div>
+              <div class="resume__entry-detail">CGPA: 9.0 / 10 &bull; AIR-120 in NIMCET 2016</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-date">2013 — 2016</div>
+              <div class="resume__entry-title">Bachelor of Computer Applications (BCA)</div>
+              <div class="resume__entry-org">University of Allahabad</div>
+              <div class="resume__entry-detail">75%</div>
+            </div>
+          </div>
+
+          <!-- Professional Experience Summary -->
+          <div class="resume__block">
+            <h3 class="resume__block-title">&#128188; Experience Summary</h3>
+            <div class="resume__entry">
+              <div class="resume__entry-date">Aug 2024 — Present</div>
+              <div class="resume__entry-title">Advance Engineer I</div>
+              <div class="resume__entry-org">Resideo Smart Home Technologies Pvt. Ltd., Bengaluru</div>
+              <div class="resume__entry-detail">Tools bridging smart home IoT devices & application interfaces. Reduced deliverables by 20-25%. Collaborating with firmware & app teams for seamless IoT integration.</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-date">Apr 2024 — Jul 2024</div>
+              <div class="resume__entry-title">Software Technologist I</div>
+              <div class="resume__entry-org">Philips India Ltd., Bengaluru</div>
+              <div class="resume__entry-detail">Managed releases (EC40, EC10, IHE LAN). Customer Escalations Lead — resolved 41/48 escalations. Code reviews, sprint planning, mentoring.</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-date">Oct 2021 — Mar 2024</div>
+              <div class="resume__entry-title">Software Engineer II</div>
+              <div class="resume__entry-org">Philips India Ltd., Bengaluru</div>
+              <div class="resume__entry-detail">BBraun Doselink+ ↔ PICiX integration via socket programming. 300+ NLS IDs/quarter. C#, .NET, SQL Server.</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-date">Jul 2019 — Sep 2021</div>
+              <div class="resume__entry-title">Software Engineer I</div>
+              <div class="resume__entry-org">Philips India Ltd., Bengaluru</div>
+              <div class="resume__entry-detail">15-18 embedded drivers (EC40, EC10) for medical devices — ventilators, infusion systems, anesthesia machines, patient monitors. C++, C#, ACE Framework.</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-date">Jan 2019 — Jul 2019</div>
+              <div class="resume__entry-title">Software Engineer Intern</div>
+              <div class="resume__entry-org">Philips India Ltd., Bengaluru</div>
+              <div class="resume__entry-detail">Developed "E-Task" module for clinicians in Remote Monitoring Centers.</div>
+            </div>
+          </div>
+
+          <!-- Certifications & Training -->
+          <div class="resume__block">
+            <h3 class="resume__block-title">&#128220; Certifications & Training</h3>
+            <div class="resume__entry">
+              <div class="resume__entry-title">LLMs & Prompt Engineering</div>
+              <div class="resume__entry-detail">Leveraging AI tools (GitHub Copilot, LLMs) for accelerated development workflows</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-title">BDD Automation with Java & Maven</div>
+              <div class="resume__entry-detail">Behavior-Driven Development for IoT device testing frameworks</div>
+            </div>
+            <div class="resume__entry">
+              <div class="resume__entry-title">Healthcare Interoperability Standards</div>
+              <div class="resume__entry-detail">HL7, IHE PCD, FHIR — Medical device data exchange protocols</div>
+            </div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="resume__block">
+            <h3 class="resume__block-title">&#127942; Achievements</h3>
+            <ul class="resume__list">
+              <li>AIR-120 in NIMCET 2016 — National-level MCA entrance exam</li>
+              <li>Developed nimcet.in — preparation platform used by multiple NITs</li>
+              <li>Event Head for IGNITE tech fest at NIT Karnataka Surathkal</li>
+              <li>Consistently rated "Exceeds Expectations" at Philips</li>
+              <li>Recognized for Philips values: Customer First, Take Ownership, Inspire & Improve</li>
+              <li>Resolved 41 out of 48 customer escalations as Escalations Lead</li>
+              <li>Managed 300+ NLS IDs per quarter for global device integration</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="resume__col">
+          <!-- Technical Skills Summary -->
+          <div class="resume__block">
+            <h3 class="resume__block-title">&#128736; Technical Skills</h3>
+            <div class="resume__skills-grid">
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Languages</span>
+                <span class="resume__skill-value">C++, C#, Python, Java, SQL</span>
+              </div>
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Frameworks</span>
+                <span class="resume__skill-value">.NET (WinForms, WPF, WCF), ACE, PyQt5</span>
+              </div>
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Protocols</span>
+                <span class="resume__skill-value">UART, RS232, BLE, Wi-Fi, MQTT, TCP/IP</span>
+              </div>
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Healthcare</span>
+                <span class="resume__skill-value">HL7, IHE PCD, FHIR, Matter</span>
+              </div>
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Tools</span>
+                <span class="resume__skill-value">Visual Studio, VS Code, GitHub, SonarQube</span>
+              </div>
+              <div class="resume__skill-row">
+                <span class="resume__skill-label">Methods</span>
+                <span class="resume__skill-value">OOP, DSA, Design Patterns, SOLID, Scrum, Kanban</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Projects -->
+          <div class="resume__block" id="resume-projects">
+            <h3 class="resume__block-title">&#128640; Key Projects</h3>
+
+            <h4 class="resume__project-group">Smart Home IoT Tools Development</h4>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Jan 2026 — Present</div>
+              <div class="resume__entry-title">Wi-Fi IOP Framework Tool</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> Design a scalable test framework to validate IoT device compatibility across 100+ consumer routers.</li>
+                <li><strong>Technical Highlights:</strong> Java, Maven, BDD test automation, Wi-Fi interoperability testing. Used Network protocol to automate the verification of device connection stability across different 802.11 standards.</li>
+                <li><strong>Impact:</strong> Reduced manual IOP testing effort by 40% and improved IoT device reliability across diverse network environments, identified router-specific issues early, and reduced field failures related to network incompatibility.</li>
+              </ul>
+            </div>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Sept 2025 — Dec 2025</div>
+              <div class="resume__entry-title">Matter Virtual Node Simulator</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> Developed a high-fidelity simulator to emulate Matter-enabled IoT devices (Lights, Thermostats, Sensors) to enable app testing without physical hardware.</li>
+                <li><strong>Technical Highlights:</strong> Utilized Python for tools development and C++ to implement the Matter protocol stack over IPv6/Thread. Designed a state machine to handle Commissioning, Operational Discovery, and Cluster attribute reporting using MQTT.</li>
+                <li><strong>Impact:</strong> Eliminated hardware procurement delays for the QA team, accelerating the release cycle by 4 weeks.</li>
+              </ul>
+            </div>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Dec 2024 — Aug 2025</div>
+              <div class="resume__entry-title">BLE Manager Tool</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> Simplify Bluetooth Low Energy (BLE) device discovery, secure connection, configuration, and cloud registration through a unified desktop tool.</li>
+                <li><strong>Technical Highlights:</strong> Python, PyQt5 GUI, BLE communication using bleak, secure BLE pairing, bidirectional data exchange, device authentication and configuration, ISU validation and summary, cross-platform support (Windows, macOS, Linux).</li>
+                <li><strong>Impact:</strong> Streamlined BLE device management, reduced pairing and communication complexity, and improved reliability of device onboarding and validation workflows.</li>
+              </ul>
+            </div>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Aug 2024 — Nov 2024</div>
+              <div class="resume__entry-title">Network Manager Tool</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> Build a Windows-based simulator to validate and test Network Manager functionality during early development, enabling end-to-end feature verification before UI availability.</li>
+                <li><strong>Technical Highlights:</strong> C#, .NET Framework 4.8, Windows Forms, RS232 serial communication, MQTT IPC, network scanning and configuration, connectivity monitoring.</li>
+                <li><strong>Impact:</strong> Enabled early functional testing, reduced integration risk, and accelerated Network Manager delivery.</li>
+              </ul>
+            </div>
+
+            <h4 class="resume__project-group">IntelliBridge Systems — Medical Device Integration (MDI)</h4>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Oct 2021 — Mar 2024</div>
+              <div class="resume__entry-title">IHE Driver (LAN) — PICiX (Patient Information Center iX)</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> Developed a standardized LAN driver to integrate the BBraun Doselink+ solution with the Philips Patient Information Center (PICiX).</li>
+                <li><strong>Technical Highlights:</strong> Optimized Socket Programming (TCP/IP) in C# to handle high-frequency vitals data. Ensured compliance with IHE PCD (Patient Care Device) profiles and used HL7 for data formatting.</li>
+                <li><strong>Impact:</strong> Successfully integrated a major third-party infusion system into the Philips ecosystem, supporting critical care data flow for multiple hospital sites.</li>
+              </ul>
+            </div>
+
+            <div class="resume__entry">
+              <div class="resume__entry-date">Jul 2019 — Sept 2021</div>
+              <div class="resume__entry-title">EC10 and EC40 Embedded Drivers</div>
+              <ul class="resume__list">
+                <li><strong>Objective:</strong> End-to-end development of serial communication drivers for diverse medical equipment (Ventilators, Anesthesia machines).</li>
+                <li><strong>Technical Highlights:</strong> Used C++ and the ACE Framework for asynchronous I/O and event handling. Developed custom simulators to mimic serial data streams for 15+ different device types during the development phase.</li>
+                <li><strong>Impact:</strong> Standardized the driver development process, enabling the rapid onboarding of new hardware vendors within the Philips IntelliBridge platform.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:3rem">
+        <a href="Shubham_Kesarwani_Resume 2026.pdf" download class="btn btn--primary">&#11015; Download Resume (PDF)</a>
       </div>
     </div>
   </section>
@@ -832,7 +1065,7 @@
           </div>
         </div>
         <form class="contact__form" id="contactForm">
-          <input type="hidden" name="access_key" value="4a3801ea-8a17-4ec5-a43d-abad9eab9adb" />
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
           <input type="hidden" name="subject" value="New Portfolio Contact from Website" />
           <input type="hidden" name="from_name" value="Portfolio Contact Form" />
           <input type="checkbox" name="botcheck" style="display:none" />
@@ -895,6 +1128,7 @@
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
         <a href="#contact">Contact</a>
       </div>
       <p class="footer__copy">

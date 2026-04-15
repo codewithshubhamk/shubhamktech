@@ -1,27 +1,1035 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
-        .container { max-width: 800px; margin: auto; }
-        h1 { color: #0070f3; }
-        .projects { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
-        .card { border: 1px solid #333; padding: 20px; border-radius: 10px; width: 200px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shubham Kesarwani — Lead Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CSS Custom Properties & Reset ===== */
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --clr-bg:#0a0a0f;
+      --clr-surface:#12121a;
+      --clr-surface-2:#1a1a26;
+      --clr-border:#2a2a3a;
+      --clr-text:#e4e4ef;
+      --clr-text-muted:#8888a0;
+      --clr-accent:#6c63ff;
+      --clr-accent-2:#00d4aa;
+      --clr-accent-3:#ff6b6b;
+      --clr-gradient:linear-gradient(135deg,#6c63ff 0%,#00d4aa 50%,#6c63ff 100%);
+      --clr-gradient-text:linear-gradient(135deg,#6c63ff,#00d4aa);
+      --clr-glass:rgba(18,18,26,.7);
+      --font-sans:'Inter',system-ui,sans-serif;
+      --font-mono:'JetBrains Mono',monospace;
+      --radius:12px;
+      --radius-lg:20px;
+      --shadow:0 8px 32px rgba(0,0,0,.4);
+      --transition:all .35s cubic-bezier(.4,0,.2,1);
+    }
+    html{scroll-behavior:smooth;scroll-padding-top:80px}
+    body{font-family:var(--font-sans);background:var(--clr-bg);color:var(--clr-text);line-height:1.7;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    ul{list-style:none}
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:var(--clr-bg)}
+    ::-webkit-scrollbar-thumb{background:var(--clr-border);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--clr-accent)}
+
+    /* ===== Animated Background Grid ===== */
+    .bg-grid{position:fixed;inset:0;z-index:-2;
+      background-image:
+        linear-gradient(rgba(108,99,255,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(108,99,255,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+    .bg-glow{position:fixed;z-index:-1;border-radius:50%;filter:blur(120px);opacity:.15;animation:float 20s ease-in-out infinite}
+    .bg-glow--1{width:600px;height:600px;background:#6c63ff;top:-200px;left:-100px}
+    .bg-glow--2{width:500px;height:500px;background:#00d4aa;bottom:-200px;right:-100px;animation-delay:-10s}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(40px) scale(1.05)}}
+
+    /* ===== Navbar ===== */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;
+      backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+      background:rgba(10,10,15,.75);border-bottom:1px solid var(--clr-border);
+      transition:var(--transition)}
+    .navbar__inner{max-width:1200px;margin:0 auto;padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between}
+    .navbar__logo{font-family:var(--font-mono);font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:2px;position:relative}
+    .navbar__logo .logo-first{display:inline-flex;overflow:hidden}
+    .navbar__logo .logo-first .logo-letter{color:var(--clr-accent);-webkit-text-fill-color:var(--clr-accent)}
+    .navbar__logo .logo-last{color:var(--clr-accent-2);-webkit-text-fill-color:var(--clr-accent-2);
+      display:inline-flex;overflow:hidden}
+    .navbar__logo .logo-dot{color:var(--clr-accent);-webkit-text-fill-color:var(--clr-accent);font-size:1.6rem;line-height:1;
+      animation:logoPulse 2s ease-in-out infinite}
+    .navbar__logo .logo-letter{display:inline-block;animation:logoSlideUp .5s ease forwards;opacity:0}
+    .navbar__logo:hover .logo-letter{animation:logoWave .6s ease forwards}
+    @keyframes logoSlideUp{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
+    @keyframes logoWave{0%{transform:translateY(0)}30%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+    @keyframes logoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+    .navbar__logo .logo-bracket{color:var(--clr-text-muted);-webkit-text-fill-color:var(--clr-text-muted);
+      font-weight:400;font-size:1rem;opacity:0;animation:bracketFade .4s ease forwards}
+    @keyframes bracketFade{to{opacity:.5}}
+    .navbar__logo .logo-cursor{display:inline-block;width:2px;height:1.1em;background:var(--clr-accent);
+      margin-left:2px;animation:logoCursorBlink 1s step-end infinite;vertical-align:text-bottom}
+    @keyframes logoCursorBlink{50%{opacity:0}}
+    .navbar__links{display:flex;gap:2rem}
+    .navbar__links a{font-size:.9rem;font-weight:500;color:var(--clr-text-muted);position:relative;transition:var(--transition)}
+    .navbar__links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+      background:var(--clr-gradient);border-radius:99px;transition:var(--transition)}
+    .navbar__links a:hover{color:var(--clr-text)}
+    .navbar__links a:hover::after{width:100%}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .nav-toggle span{display:block;width:24px;height:2px;background:var(--clr-text);border-radius:99px;transition:var(--transition)}
+
+    /* ===== Section Shared ===== */
+    .section{padding:6rem 2rem}
+    .section__inner{max-width:1200px;margin:0 auto}
+    .section__badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;
+      border:1px solid var(--clr-border);border-radius:99px;font-size:.8rem;font-family:var(--font-mono);
+      color:var(--clr-accent);margin-bottom:1.2rem;background:var(--clr-surface)}
+    .section__badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--clr-accent);
+      animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+    .section__title{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.15;margin-bottom:1rem}
+    .section__subtitle{font-size:1.1rem;color:var(--clr-text-muted);max-width:600px;margin-bottom:3rem}
+
+    /* ===== Hero ===== */
+    .hero{min-height:100vh;display:flex;align-items:center;padding-top:80px}
+    .hero__inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .hero__tag{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;
+      border:1px solid var(--clr-border);border-radius:99px;font-size:.82rem;font-family:var(--font-mono);
+      color:var(--clr-accent-2);margin-bottom:1.5rem;background:rgba(0,212,170,.06)}
+    .hero__tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--clr-accent-2);
+      box-shadow:0 0 12px var(--clr-accent-2);animation:pulse 2s ease-in-out infinite}
+    .hero__title{font-size:clamp(2.5rem,5.5vw,4rem);font-weight:900;line-height:1.08;margin-bottom:.5rem}
+    .hero__title .gradient{background:var(--clr-gradient-text);-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;background-clip:text}
+    .hero__role{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:600;color:var(--clr-text-muted);margin-bottom:1.5rem}
+    .hero__desc{font-size:1.05rem;color:var(--clr-text-muted);max-width:540px;margin-bottom:2rem}
+    .hero__btns{display:flex;gap:1rem;flex-wrap:wrap}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:var(--radius);
+      font-weight:600;font-size:.95rem;cursor:pointer;border:none;transition:var(--transition);font-family:var(--font-sans)}
+    .btn--primary{background:var(--clr-accent);color:#fff;box-shadow:0 4px 24px rgba(108,99,255,.35)}
+    .btn--primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,99,255,.5)}
+    .btn--outline{background:transparent;color:var(--clr-text);border:1px solid var(--clr-border)}
+    .btn--outline:hover{border-color:var(--clr-accent);color:var(--clr-accent);transform:translateY(-2px)}
+
+    /* Hero Visual — Terminal Card */
+    .terminal{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);
+      overflow:hidden;box-shadow:var(--shadow);position:relative}
+    .terminal::before{content:'';position:absolute;inset:-1px;border-radius:var(--radius-lg);
+      background:var(--clr-gradient);z-index:-1;opacity:.15}
+    .terminal__bar{display:flex;align-items:center;gap:8px;padding:.75rem 1rem;background:var(--clr-surface-2);border-bottom:1px solid var(--clr-border)}
+    .terminal__dot{width:12px;height:12px;border-radius:50%}
+    .terminal__dot--red{background:#ff5f57}.terminal__dot--yellow{background:#ffbd2e}.terminal__dot--green{background:#28c840}
+    .terminal__body{padding:1.5rem;font-family:var(--font-mono);font-size:.85rem;line-height:1.9;color:var(--clr-text-muted)}
+    .terminal__line{display:block;opacity:0;animation:typeLine .5s ease forwards}
+    .terminal__line:nth-child(1){animation-delay:.3s}
+    .terminal__line:nth-child(2){animation-delay:.8s}
+    .terminal__line:nth-child(3){animation-delay:1.3s}
+    .terminal__line:nth-child(4){animation-delay:1.8s}
+    .terminal__line:nth-child(5){animation-delay:2.3s}
+    .terminal__line:nth-child(6){animation-delay:2.8s}
+    .terminal__line:nth-child(7){animation-delay:3.3s}
+    @keyframes typeLine{to{opacity:1}}
+    .terminal__prompt{color:var(--clr-accent-2)}
+    .terminal__cmd{color:var(--clr-text)}
+    .terminal__comment{color:#555570;font-style:italic}
+    .terminal__key{color:var(--clr-accent)}
+    .terminal__val{color:var(--clr-accent-2)}
+    .terminal__cursor{display:inline-block;width:8px;height:16px;background:var(--clr-accent);
+      animation:blink 1s step-end infinite;vertical-align:text-bottom;margin-left:4px}
+    @keyframes blink{50%{opacity:0}}
+
+    /* ===== Stats Bar ===== */
+    .stats{padding:3rem 2rem;border-top:1px solid var(--clr-border);border-bottom:1px solid var(--clr-border);
+      background:var(--clr-surface)}
+    .stats__inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+    .stats__num{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;
+      background:var(--clr-gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stats__label{font-size:.85rem;color:var(--clr-text-muted);margin-top:.25rem}
+
+    /* ===== About ===== */
+    .about__grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .about__text p{color:var(--clr-text-muted);margin-bottom:1.2rem;font-size:1.02rem}
+    .about__highlights{display:grid;gap:1rem}
+    .highlight{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem;
+      background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);transition:var(--transition)}
+    .highlight:hover{border-color:var(--clr-accent);transform:translateX(4px)}
+    .highlight__icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-size:1.2rem;flex-shrink:0;
+      background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.2)}
+    .highlight__title{font-weight:600;font-size:.95rem;margin-bottom:.2rem}
+    .highlight__desc{font-size:.85rem;color:var(--clr-text-muted)}
+
+    /* ===== Skills ===== */
+    .skills__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+    .skill-card{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);
+      padding:2rem;transition:var(--transition);position:relative;overflow:hidden}
+    .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:var(--clr-gradient);opacity:0;transition:var(--transition)}
+    .skill-card:hover{transform:translateY(-4px);border-color:var(--clr-accent);box-shadow:0 12px 40px rgba(108,99,255,.15)}
+    .skill-card:hover::before{opacity:1}
+    .skill-card__icon{font-size:2rem;margin-bottom:1rem}
+    .skill-card__title{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
+    .skill-card__desc{font-size:.9rem;color:var(--clr-text-muted);margin-bottom:1.2rem}
+    .skill-card__tags{display:flex;flex-wrap:wrap;gap:.5rem}
+    .skill-tag{padding:.25rem .7rem;font-size:.75rem;font-family:var(--font-mono);
+      background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:99px;color:var(--clr-accent)}
+
+    /* ===== Experience Timeline ===== */
+    .timeline{position:relative;padding-left:3rem}
+    .timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;
+      background:linear-gradient(to bottom,var(--clr-accent),var(--clr-accent-2),transparent)}
+    .timeline__item{position:relative;margin-bottom:3rem}
+    .timeline__dot{position:absolute;left:-3rem;top:.5rem;width:24px;height:24px;border-radius:50%;
+      background:var(--clr-bg);border:2px solid var(--clr-accent);display:grid;place-items:center}
+    .timeline__dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--clr-accent)}
+    .timeline__card{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);
+      padding:1.5rem 2rem;transition:var(--transition)}
+    .timeline__card:hover{border-color:var(--clr-accent);box-shadow:0 8px 32px rgba(108,99,255,.1)}
+    .timeline__date{font-family:var(--font-mono);font-size:.8rem;color:var(--clr-accent);margin-bottom:.3rem}
+    .timeline__role{font-size:1.15rem;font-weight:700;margin-bottom:.15rem}
+    .timeline__company{font-size:.95rem;color:var(--clr-accent-2);margin-bottom:.6rem}
+    .timeline__desc{font-size:.9rem;color:var(--clr-text-muted);line-height:1.7}
+
+    /* ===== Projects ===== */
+    .projects__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+    .project-card{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);
+      overflow:hidden;transition:var(--transition);display:flex;flex-direction:column}
+    .project-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.3);border-color:var(--clr-accent)}
+    .project-card__banner{height:200px;position:relative;overflow:hidden}
+    .project-card__banner-bg{width:100%;height:100%;object-fit:cover;
+      background:linear-gradient(135deg,var(--clr-surface-2),var(--clr-bg));display:grid;place-items:center;
+      font-size:3rem}
+    .project-card__body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+    .project-card__title{font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+    .project-card__desc{font-size:.9rem;color:var(--clr-text-muted);margin-bottom:1rem;flex:1}
+    .project-card__tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+    .project-card__links{display:flex;gap:.75rem}
+    .project-card__link{padding:.4rem 1rem;font-size:.82rem;border-radius:var(--radius);
+      border:1px solid var(--clr-border);font-weight:500;transition:var(--transition)}
+    .project-card__link:hover{border-color:var(--clr-accent);color:var(--clr-accent)}
+
+    /* ===== Contact ===== */
+    .contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .contact__info h3{font-size:1.5rem;font-weight:700;margin-bottom:1rem}
+    .contact__info p{color:var(--clr-text-muted);margin-bottom:2rem}
+    .contact__channels{display:grid;gap:1rem}
+    .contact__channel{display:flex;align-items:center;gap:1rem;padding:1rem;
+      background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius);transition:var(--transition)}
+    .contact__channel:hover{border-color:var(--clr-accent);transform:translateX(4px)}
+    .contact__channel-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
+      background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.2);font-size:1.1rem}
+    .contact__channel-label{font-size:.82rem;color:var(--clr-text-muted)}
+    .contact__channel-value{font-weight:600;font-size:.95rem}
+    .contact__form{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);padding:2rem}
+    .form__group{margin-bottom:1.2rem}
+    .form__label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.4rem;color:var(--clr-text-muted)}
+    .form__input,.form__textarea{width:100%;padding:.75rem 1rem;background:var(--clr-surface-2);
+      border:1px solid var(--clr-border);border-radius:var(--radius);color:var(--clr-text);
+      font-family:var(--font-sans);font-size:.95rem;transition:var(--transition);outline:none}
+    .form__input:focus,.form__textarea:focus{border-color:var(--clr-accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)}
+    .form__textarea{min-height:120px;resize:vertical}
+
+    /* ===== Footer ===== */
+    .footer{padding:3rem 2rem;border-top:1px solid var(--clr-border);text-align:center}
+    .footer__inner{max-width:1200px;margin:0 auto}
+    .footer__links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.2rem;flex-wrap:wrap}
+    .footer__links a{color:var(--clr-text-muted);font-size:.9rem;transition:var(--transition)}
+    .footer__links a:hover{color:var(--clr-accent)}
+    .footer__copy{font-size:.82rem;color:var(--clr-text-muted)}
+    .footer__copy .gradient{background:var(--clr-gradient-text);-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;background-clip:text;font-weight:600}
+
+    /* ===== Light Theme ===== */
+    [data-theme="light"]{
+      --clr-bg:#f5f5fa;
+      --clr-surface:#ffffff;
+      --clr-surface-2:#eeeef4;
+      --clr-border:#d0d0e0;
+      --clr-text:#1a1a2e;
+      --clr-text-muted:#5a5a7a;
+      --clr-glass:rgba(255,255,255,.7);
+      --shadow:0 8px 32px rgba(0,0,0,.08);
+    }
+    [data-theme="light"] .bg-grid{
+      background-image:
+        linear-gradient(rgba(108,99,255,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(108,99,255,.06) 1px,transparent 1px);
+    }
+    [data-theme="light"] .bg-glow{opacity:.08}
+    [data-theme="light"] .navbar{background:rgba(245,245,250,.8)}
+    [data-theme="light"] .terminal__comment{color:#9090a8}
+    [data-theme="light"] .highlight__icon{background:rgba(108,99,255,.08);border-color:rgba(108,99,255,.15)}
+    [data-theme="light"] .contact__channel-icon{background:rgba(108,99,255,.08);border-color:rgba(108,99,255,.15)}
+    [data-theme="light"] .navbar__links{background:rgba(245,245,250,.95)}
+    [data-theme="light"] ::-webkit-scrollbar-track{background:var(--clr-bg)}
+
+    /* ===== Theme Toggle ===== */
+    .theme-toggle{width:44px;height:44px;border-radius:50%;border:1px solid var(--clr-border);
+      background:var(--clr-surface);cursor:pointer;display:grid;place-items:center;
+      font-size:1.2rem;transition:var(--transition);flex-shrink:0;margin-left:.5rem}
+    .theme-toggle:hover{border-color:var(--clr-accent);transform:scale(1.1)}
+    .theme-toggle .icon-sun{display:none}
+    .theme-toggle .icon-moon{display:block}
+    [data-theme="light"] .theme-toggle .icon-sun{display:block}
+    [data-theme="light"] .theme-toggle .icon-moon{display:none}
+
+    /* ===== Chatbot ===== */
+    .chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:9999;width:60px;height:60px;border-radius:50%;
+      background:var(--clr-accent);color:#fff;border:none;cursor:pointer;
+      display:grid;place-items:center;font-size:1.6rem;
+      box-shadow:0 6px 24px rgba(108,99,255,.4);transition:var(--transition)}
+    .chatbot-fab:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(108,99,255,.55)}
+    .chatbot-fab .fab-close{display:none}
+    .chatbot-fab.active .fab-open{display:none}
+    .chatbot-fab.active .fab-close{display:block}
+
+    .chatbot{position:fixed;bottom:6.5rem;right:2rem;z-index:9998;width:380px;max-height:520px;
+      background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);
+      box-shadow:0 16px 48px rgba(0,0,0,.3);display:flex;flex-direction:column;
+      opacity:0;visibility:hidden;transform:translateY(20px) scale(.95);transition:var(--transition)}
+    .chatbot.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+
+    .chatbot__header{padding:1rem 1.2rem;border-bottom:1px solid var(--clr-border);
+      display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+    .chatbot__avatar{width:36px;height:36px;border-radius:50%;background:var(--clr-accent);
+      display:grid;place-items:center;color:#fff;font-size:.9rem;font-weight:700;flex-shrink:0}
+    .chatbot__header-text h4{font-size:.95rem;font-weight:700;margin:0}
+    .chatbot__header-text p{font-size:.75rem;color:var(--clr-accent-2);margin:0;display:flex;align-items:center;gap:4px}
+    .chatbot__header-text p::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--clr-accent-2)}
+
+    .chatbot__messages{flex:1;overflow-y:auto;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.75rem;
+      min-height:280px;scroll-behavior:smooth}
+    .chatbot__messages::-webkit-scrollbar{width:4px}
+    .chatbot__messages::-webkit-scrollbar-thumb{background:var(--clr-border);border-radius:99px}
+
+    .chat-msg{max-width:85%;padding:.65rem 1rem;border-radius:var(--radius);font-size:.88rem;line-height:1.5;
+      animation:chatPop .3s ease}
+    .chat-msg--bot{background:var(--clr-surface-2);border:1px solid var(--clr-border);align-self:flex-start;
+      border-bottom-left-radius:4px}
+    .chat-msg--user{background:var(--clr-accent);color:#fff;align-self:flex-end;
+      border-bottom-right-radius:4px}
+    @keyframes chatPop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+    .chat-typing{display:flex;gap:4px;padding:.65rem 1rem;align-self:flex-start;
+      background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius);border-bottom-left-radius:4px}
+    .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--clr-text-muted);
+      animation:typingDot 1.4s ease-in-out infinite}
+    .chat-typing span:nth-child(2){animation-delay:.2s}
+    .chat-typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typingDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+    .chatbot__suggestions{padding:.5rem 1.2rem;display:flex;flex-wrap:wrap;gap:.4rem;flex-shrink:0}
+    .chat-suggestion{padding:.3rem .75rem;font-size:.78rem;border-radius:99px;
+      border:1px solid var(--clr-border);background:var(--clr-surface-2);color:var(--clr-text);
+      cursor:pointer;transition:var(--transition);font-family:var(--font-sans)}
+    .chat-suggestion:hover{border-color:var(--clr-accent);color:var(--clr-accent)}
+
+    .chatbot__input{display:flex;gap:.5rem;padding:.75rem 1rem;border-top:1px solid var(--clr-border);flex-shrink:0}
+    .chatbot__input input{flex:1;padding:.55rem .75rem;background:var(--clr-surface-2);
+      border:1px solid var(--clr-border);border-radius:var(--radius);color:var(--clr-text);
+      font-family:var(--font-sans);font-size:.88rem;outline:none;transition:var(--transition)}
+    .chatbot__input input:focus{border-color:var(--clr-accent)}
+    .chatbot__input button{width:38px;height:38px;border-radius:var(--radius);border:none;
+      background:var(--clr-accent);color:#fff;cursor:pointer;display:grid;place-items:center;
+      font-size:1rem;transition:var(--transition);flex-shrink:0}
+    .chatbot__input button:hover{background:#5a52e0}
+
+    @media(max-width:500px){
+      .chatbot{width:calc(100vw - 2rem);right:1rem;bottom:5.5rem;max-height:70vh}
+      .chatbot-fab{bottom:1.2rem;right:1.2rem;width:52px;height:52px;font-size:1.3rem}
+    }
+
+    /* ===== Scroll Reveal ===== */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ===== Responsive ===== */
+    @media(max-width:900px){
+      .hero__inner{grid-template-columns:1fr;text-align:center}
+      .hero__desc{margin:0 auto 2rem}
+      .hero__btns{justify-content:center}
+      .terminal{max-width:500px;margin:2rem auto 0}
+      .stats__inner{grid-template-columns:repeat(2,1fr)}
+      .about__grid,.contact__grid{grid-template-columns:1fr}
+      .navbar__links{display:none;position:absolute;top:100%;left:0;right:0;
+        flex-direction:column;background:rgba(10,10,15,.95);backdrop-filter:blur(20px);
+        padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--clr-border)}
+      .navbar__links.active{display:flex}
+      .nav-toggle{display:flex}
+    }
+    @media(max-width:600px){
+      .section{padding:4rem 1.2rem}
+      .hero{padding:80px 1.2rem 3rem}
+      .skills__grid{grid-template-columns:1fr}
+      .projects__grid{grid-template-columns:1fr}
+      .stats__inner{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hi, I'm Shubham</h1>
-        <p>A Developer building the future of the web.</p>
-        
-        <h2>My Projects</h2>
-        <div class="projects">
-            <div class="card"><h3>Project 1</h3><p>Description here</p></div>
-            <div class="card"><h3>Project 2</h3><p>Description here</p></div>
-        </div>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo" aria-label="Shubham Kesarwani">
+        <span class="logo-bracket" style="animation-delay:.0s">{</span>
+        <span class="logo-first">
+          <span class="logo-letter" style="animation-delay:.1s">S</span><span class="logo-letter" style="animation-delay:.15s">h</span><span class="logo-letter" style="animation-delay:.2s">u</span><span class="logo-letter" style="animation-delay:.25s">b</span><span class="logo-letter" style="animation-delay:.3s">h</span><span class="logo-letter" style="animation-delay:.35s">a</span><span class="logo-letter" style="animation-delay:.4s">m</span>
+        </span>
+        <span class="logo-dot">.</span>
+        <span class="logo-last">
+          <span class="logo-letter" style="animation-delay:.5s">K</span><span class="logo-letter" style="animation-delay:.55s">e</span><span class="logo-letter" style="animation-delay:.6s">s</span><span class="logo-letter" style="animation-delay:.65s">a</span><span class="logo-letter" style="animation-delay:.7s">r</span><span class="logo-letter" style="animation-delay:.75s">w</span><span class="logo-letter" style="animation-delay:.8s">a</span><span class="logo-letter" style="animation-delay:.85s">n</span><span class="logo-letter" style="animation-delay:.9s">i</span>
+        </span>
+        <span class="logo-bracket" style="animation-delay:1s">}</span>
+        <span class="logo-cursor"></span>
+      </a>
+      <div class="navbar__links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="icon-moon">&#9790;</span>
+          <span class="icon-sun">&#9728;</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
+  </nav>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero section" id="hero">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__tag">&#9679; Available for opportunities</div>
+        <h1 class="hero__title">
+          Hi, I'm <span class="gradient">Shubham</span><br/>Kesarwani
+        </h1>
+        <p class="hero__role">Lead Engineer &bull; Embedded &amp; IoT Specialist &bull; Tools Architect</p>
+        <p class="hero__desc">
+          I build embedded device drivers and integration tools that bridge firmware and software layers,
+          delivering mission-critical solutions in IoT Smart Home and Healthcare sectors.
+        </p>
+        <div class="hero__btns">
+          <a href="#contact" class="btn btn--primary">&#9993; Get in Touch</a>
+          <a href="#projects" class="btn btn--outline">&#9670; View Projects</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="terminal">
+          <div class="terminal__bar">
+            <span class="terminal__dot terminal__dot--red"></span>
+            <span class="terminal__dot terminal__dot--yellow"></span>
+            <span class="terminal__dot terminal__dot--green"></span>
+          </div>
+          <div class="terminal__body">
+            <span class="terminal__line"><span class="terminal__prompt">~ $</span> <span class="terminal__cmd">cat about_me.json</span></span>
+            <span class="terminal__line"><span class="terminal__comment">// shubham_kesarwani.config</span></span>
+            <span class="terminal__line">{</span>
+            <span class="terminal__line">&nbsp;&nbsp;<span class="terminal__key">"role"</span>: <span class="terminal__val">"Lead Engineer"</span>,</span>
+            <span class="terminal__line">&nbsp;&nbsp;<span class="terminal__key">"experience"</span>: <span class="terminal__val">"6+ years"</span>,</span>
+            <span class="terminal__line">&nbsp;&nbsp;<span class="terminal__key">"domain"</span>: <span class="terminal__val">"IoT &amp; Healthcare"</span>,</span>
+            <span class="terminal__line">&nbsp;&nbsp;<span class="terminal__key">"status"</span>: <span class="terminal__val">"Building drivers"</span> <span class="terminal__cursor"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats reveal">
+    <div class="stats__inner">
+      <div><div class="stats__num">6+</div><div class="stats__label">Years Experience</div></div>
+      <div><div class="stats__num">15+</div><div class="stats__label">Drivers Delivered</div></div>
+      <div><div class="stats__num">41</div><div class="stats__label">Escalations Resolved</div></div>
+      <div><div class="stats__num">300+</div><div class="stats__label">NLS IDs Created</div></div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="section" id="about">
+    <div class="section__inner reveal">
+      <div class="section__badge">ABOUT ME</div>
+      <h2 class="section__title">Lead Engineer &<br/>IoT Specialist</h2>
+      <div class="about__grid">
+        <div class="about__text">
+          <p>
+            Lead Engineer with 6+ years of experience in Embedded Device Driver and Application Development.
+            Proven technical leader specializing in C++, C#, .NET, Python, and Java.
+          </p>
+          <p>
+            Expert in Driver Development and Tools Engineering within the IoT Smart Home and Healthcare sectors.
+            Successfully led cross-functional teams to deliver scalable integration tools bridging firmware
+            and software layers.
+          </p>
+          <p>
+            Strong expertise in System Design, Agile methodologies, and SQL Server, with a track record
+            of mentoring engineers and delivering high-performance, mission-critical solutions.
+          </p>
+        </div>
+        <div class="about__highlights">
+          <div class="highlight">
+            <div class="highlight__icon">&#9881;</div>
+            <div>
+              <div class="highlight__title">Embedded Systems</div>
+              <div class="highlight__desc">Device drivers, serial communication (UART, RS232), BLE, Wi-Fi, and MQTT protocols</div>
+            </div>
+          </div>
+          <div class="highlight">
+            <div class="highlight__icon">&#9733;</div>
+            <div>
+              <div class="highlight__title">Team Leadership</div>
+              <div class="highlight__desc">Leading cross-functional teams, mentoring engineers, and driving customer escalation resolution</div>
+            </div>
+          </div>
+          <div class="highlight">
+            <div class="highlight__icon">&#9889;</div>
+            <div>
+              <div class="highlight__title">Healthcare &amp; IoT</div>
+              <div class="highlight__desc">HL7, IHE PCD, FHIR standards — medical device integration and smart home solutions</div>
+            </div>
+          </div>
+          <div class="highlight">
+            <div class="highlight__icon">&#128202;</div>
+            <div>
+              <div class="highlight__title">Agile Delivery</div>
+              <div class="highlight__desc">Scrum, Kanban — sprint planning, code reviews, and predictable high-quality releases</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section class="section" id="skills">
+    <div class="section__inner reveal">
+      <div class="section__badge">TECH STACK</div>
+      <h2 class="section__title">Skills & Technologies</h2>
+      <p class="section__subtitle">Languages, frameworks, protocols, and platforms I use to build embedded and enterprise solutions.</p>
+      <div class="skills__grid">
+        <div class="skill-card">
+          <div class="skill-card__icon">&#128187;</div>
+          <h3 class="skill-card__title">Languages &amp; Frameworks</h3>
+          <p class="skill-card__desc">Core programming languages and frameworks for embedded, desktop, and backend development.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">C++</span><span class="skill-tag">C#</span>
+            <span class="skill-tag">Python</span><span class="skill-tag">Java</span>
+            <span class="skill-tag">.NET (WinForms/WPF/WCF)</span><span class="skill-tag">SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card__icon">&#9881;</div>
+          <h3 class="skill-card__title">Embedded &amp; IoT Protocols</h3>
+          <p class="skill-card__desc">Hardware communication protocols and IoT connectivity standards for device integration.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">UART</span><span class="skill-tag">RS232</span>
+            <span class="skill-tag">Ethernet</span><span class="skill-tag">BLE (802.15)</span>
+            <span class="skill-tag">Wi-Fi (802.11)</span><span class="skill-tag">MQTT</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card__icon">&#127973;</div>
+          <h3 class="skill-card__title">Healthcare Standards</h3>
+          <p class="skill-card__desc">Medical device interoperability standards and data exchange protocols.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">HL7</span><span class="skill-tag">IHE PCD</span>
+            <span class="skill-tag">FHIR</span><span class="skill-tag">TCP/IP Socket</span>
+            <span class="skill-tag">ACE Framework</span><span class="skill-tag">Matter</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card__icon">&#129302;</div>
+          <h3 class="skill-card__title">AI &amp; Developer Productivity</h3>
+          <p class="skill-card__desc">Leveraging modern AI tools and prompt engineering to accelerate development workflows.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">LLMs</span><span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">GitHub Copilot</span><span class="skill-tag">BDD Automation</span>
+            <span class="skill-tag">Maven</span><span class="skill-tag">PyQt5</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card__icon">&#128202;</div>
+          <h3 class="skill-card__title">Software Engineering</h3>
+          <p class="skill-card__desc">System design principles, patterns, and agile methodologies for reliable delivery.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">OOP</span><span class="skill-tag">DSA</span>
+            <span class="skill-tag">Design Patterns</span><span class="skill-tag">SOLID</span>
+            <span class="skill-tag">Scrum</span><span class="skill-tag">Kanban</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card__icon">&#128295;</div>
+          <h3 class="skill-card__title">Tools &amp; Platforms</h3>
+          <p class="skill-card__desc">Development tools, IDEs, version control, and code quality platforms.</p>
+          <div class="skill-card__tags">
+            <span class="skill-tag">Visual Studio</span><span class="skill-tag">VS Code</span>
+            <span class="skill-tag">GitHub</span><span class="skill-tag">SonarQube</span>
+            <span class="skill-tag">Windows</span><span class="skill-tag">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section class="section" id="experience">
+    <div class="section__inner reveal">
+      <div class="section__badge">CAREER PATH</div>
+      <h2 class="section__title">Professional Experience</h2>
+      <p class="section__subtitle">A journey of progressive leadership and hands-on engineering excellence.</p>
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__date">Aug 2024 — Present</div>
+            <div class="timeline__role">Advance Engineer I</div>
+            <div class="timeline__company">Resideo Smart Home Technologies Pvt. Ltd., Bengaluru</div>
+            <p class="timeline__desc">
+              Developing and maintaining tools bridging smart home IoT devices and application interfaces,
+              eliminating delays and reducing overall deliverables by 20-25%. Collaborating with firmware
+              and application teams to ensure seamless integration between tools and IoT devices.
+            </p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__date">Apr 2024 — Jul 2024</div>
+            <div class="timeline__role">Software Technologist I</div>
+            <div class="timeline__company">Philips India Ltd., Bengaluru</div>
+            <p class="timeline__desc">
+              Managed multiple program releases including Serial drivers (EC40, EC10) and IHE Driver (LAN) development.
+              Served as Customer Escalations Lead, resolving 41 out of 48 escalations.
+              Participated in code reviews, sprint planning, and mentoring as the go-to person for technical blockers.
+            </p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__date">Oct 2021 — Mar 2024</div>
+            <div class="timeline__role">Software Engineer II</div>
+            <div class="timeline__company">Philips India Ltd., Bengaluru</div>
+            <p class="timeline__desc">
+              Owned and developed key integration connecting BBraun Doselink+ with PICiX using socket programming.
+              Managed NLS IDs creation (300+ per quarter). Implemented solutions using C#, .NET, and SQL Server
+              for reliable system integration and data management.
+            </p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__date">Jul 2019 — Sep 2021</div>
+            <div class="timeline__role">Software Engineer I</div>
+            <div class="timeline__company">Philips India Ltd., Bengaluru</div>
+            <p class="timeline__desc">
+              Developed and maintained EC40 and EC10 embedded drivers for medical devices — end-to-end from
+              requirements gathering to release and simulator creation. Delivered 15-18 drivers for infusion systems,
+              patient monitors, anesthesia machines, ventilators, and urine output systems using C++, C#, and ACE Framework.
+            </p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__date">Jan 2019 — Jul 2019</div>
+            <div class="timeline__role">Software Engineer Intern</div>
+            <div class="timeline__company">Philips India Ltd., Bengaluru</div>
+            <p class="timeline__desc">
+              Developed the "E-Task" module to allow clinicians in Remote Monitoring Centers to quickly record key patient notes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section class="section" id="projects">
+    <div class="section__inner reveal">
+      <div class="section__badge">PORTFOLIO</div>
+      <h2 class="section__title">Featured Projects</h2>
+      <p class="section__subtitle">Select works showcasing embedded systems, IoT tools, and medical device integration.</p>
+      <div class="projects__grid">
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#1a1040,#2d1b69)">&#128225;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Wi-Fi IOP Framework Tool</h3>
+            <p class="project-card__desc">
+              Scalable test framework to validate IoT device compatibility across 100+ consumer routers.
+              Reduced manual IOP testing effort by 40% and improved device reliability across diverse networks.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">Java</span><span class="skill-tag">Maven</span>
+              <span class="skill-tag">BDD</span><span class="skill-tag">Wi-Fi 802.11</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#0a2540,#1a4a6e)">&#127968;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Matter Virtual Node Simulator</h3>
+            <p class="project-card__desc">
+              High-fidelity simulator emulating Matter-enabled IoT devices (Lights, Thermostats, Sensors)
+              for app testing without physical hardware. Accelerated release cycle by 4 weeks.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">Python</span><span class="skill-tag">C++</span>
+              <span class="skill-tag">Matter</span><span class="skill-tag">MQTT</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#1a2a3a,#2d4a6a)">&#128246;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">BLE Manager Tool</h3>
+            <p class="project-card__desc">
+              Unified desktop tool for BLE device discovery, secure pairing, configuration, and cloud registration.
+              Cross-platform support for Windows, macOS, and Linux.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">Python</span><span class="skill-tag">PyQt5</span>
+              <span class="skill-tag">BLE</span><span class="skill-tag">bleak</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#2a1a1a,#4a2d2d)">&#127973;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">IHE Driver (LAN) — PICiX</h3>
+            <p class="project-card__desc">
+              Standardized LAN driver integrating BBraun Doselink+ with Philips Patient Information Center
+              using optimized Socket Programming (TCP/IP) in C#. IHE PCD and HL7 compliant.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">C#</span><span class="skill-tag">TCP/IP</span>
+              <span class="skill-tag">HL7</span><span class="skill-tag">IHE PCD</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#1a3a2a,#2d5a4a)">&#128268;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Network Manager Tool</h3>
+            <p class="project-card__desc">
+              Windows-based simulator for Network Manager functionality testing.
+              Enabled early functional testing, reduced integration risk, and accelerated delivery.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">C#</span><span class="skill-tag">.NET 4.8</span>
+              <span class="skill-tag">RS232</span><span class="skill-tag">MQTT</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card__banner">
+            <div class="project-card__banner-bg" style="background:linear-gradient(135deg,#1a1a3a,#3a2d5a)">&#9881;</div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">EC10 &amp; EC40 Embedded Drivers</h3>
+            <p class="project-card__desc">
+              End-to-end serial communication drivers for 15+ medical device types including ventilators,
+              anesthesia machines, and patient monitors. Custom simulators for each device type.
+            </p>
+            <div class="project-card__tags">
+              <span class="skill-tag">C++</span><span class="skill-tag">C#</span>
+              <span class="skill-tag">ACE Framework</span><span class="skill-tag">Serial</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">&#128279; Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="section" id="contact">
+    <div class="section__inner reveal">
+      <div class="section__badge">CONTACT</div>
+      <h2 class="section__title">Let's Build Something<br/><span class="gradient">Great Together</span></h2>
+      <p class="section__subtitle">Have a project in mind or looking for an embedded systems engineer? I'd love to hear from you.</p>
+      <div class="contact__grid">
+        <div class="contact__info">
+          <h3>Get in Touch</h3>
+          <p>Whether it's a new project, consulting opportunity, or just a tech conversation — my inbox is always open.</p>
+          <div class="contact__channels">
+            <div class="contact__channel">
+              <div class="contact__channel-icon">&#9993;</div>
+              <div>
+                <div class="contact__channel-label">Email</div>
+                <div class="contact__channel-value">shubham.kesarwani35@gmail.com</div>
+              </div>
+            </div>
+            <div class="contact__channel">
+              <div class="contact__channel-icon">&#127760;</div>
+              <div>
+                <div class="contact__channel-label">LinkedIn</div>
+                <div class="contact__channel-value">linkedin.com/in/shubhamkesarwani35</div>
+              </div>
+            </div>
+            <div class="contact__channel">
+              <div class="contact__channel-icon">&#128222;</div>
+              <div>
+                <div class="contact__channel-label">Phone</div>
+                <div class="contact__channel-value">+91-8381908975</div>
+              </div>
+            </div>
+            <div class="contact__channel">
+              <div class="contact__channel-icon">&#128205;</div>
+              <div>
+                <div class="contact__channel-label">Location</div>
+                <div class="contact__channel-value">Bengaluru, India</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact__form" onsubmit="event.preventDefault(); alert('Message sent! I\'ll get back to you soon.');">
+          <div class="form__group">
+            <label class="form__label" for="name">Full Name</label>
+            <input class="form__input" type="text" id="name" placeholder="John Doe" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="email">Email Address</label>
+            <input class="form__input" type="email" id="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="subject">Subject</label>
+            <input class="form__input" type="text" id="subject" placeholder="Project Consultation" />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="message">Message</label>
+            <textarea class="form__textarea" id="message" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">&#9993; Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI Chatbot ===== -->
+  <button class="chatbot-fab" id="chatFab" aria-label="Open AI Assistant">
+    <span class="fab-open">&#129302;</span>
+    <span class="fab-close">&#10005;</span>
+  </button>
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot__header">
+      <div class="chatbot__avatar">SK</div>
+      <div class="chatbot__header-text">
+        <h4>SK Assistant</h4>
+        <p>Online — Ask me anything</p>
+      </div>
+    </div>
+    <div class="chatbot__messages" id="chatMessages">
+      <div class="chat-msg chat-msg--bot">Hey there! &#128075; I'm Shubham's AI assistant. Ask me about his skills, experience, projects, or how to get in touch!</div>
+    </div>
+    <div class="chatbot__suggestions" id="chatSuggestions">
+      <button class="chat-suggestion" data-msg="What are your top skills?">Top skills</button>
+      <button class="chat-suggestion" data-msg="Tell me about your experience">Experience</button>
+      <button class="chat-suggestion" data-msg="What projects have you worked on?">Projects</button>
+      <button class="chat-suggestion" data-msg="How can I contact you?">Contact</button>
+    </div>
+    <div class="chatbot__input">
+      <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" />
+      <button id="chatSend" aria-label="Send message">&#10148;</button>
+    </div>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer__copy">
+        Designed & built by <span class="gradient">Shubham Kesarwani</span> &bull; &copy; 2026. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ===== Scripts ===== -->
+  <script>
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.navbar__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('active');
+      });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Navbar shrink on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        nav.style.padding = '0';
+        nav.style.boxShadow = '0 4px 24px rgba(0,0,0,.3)';
+      } else {
+        nav.style.padding = '';
+        nav.style.boxShadow = '';
+      }
+    });
+
+    // ===== Dark / Light Theme Toggle =====
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('sk-theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('sk-theme', next);
+    });
+
+    // ===== AI Chatbot =====
+    const chatFab = document.getElementById('chatFab');
+    const chatbot = document.getElementById('chatbot');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatSuggestions = document.getElementById('chatSuggestions');
+
+    chatFab.addEventListener('click', () => {
+      chatFab.classList.toggle('active');
+      chatbot.classList.toggle('open');
+      if (chatbot.classList.contains('open')) chatInput.focus();
+    });
+
+    // Knowledge base for the bot
+    const botKB = {
+      skills: `Shubham's core skills include:\n\n• **Languages:** C++, C#, Python, Java, .NET (WinForms, WPF, WCF), SQL Server\n• **Embedded & IoT:** UART, RS232, Ethernet, BLE (802.15), Wi-Fi (802.11), MQTT\n• **Healthcare:** HL7, IHE PCD, FHIR, TCP/IP Socket Programming\n• **AI & Productivity:** LLMs, Prompt Engineering, GitHub Copilot\n• **Engineering:** OOP, DSA, Design Patterns, SOLID, Scrum, Kanban\n• **Tools:** Visual Studio, VS Code, GitHub, SonarQube, Windows, Linux`,
+      experience: `Shubham has 6+ years of progressive engineering experience:\n\n• **Advance Engineer I** (Aug 2024–Present) at Resideo Smart Home Technologies — IoT tools bridging firmware & apps, reducing deliverables by 20-25%\n• **Software Technologist I** (Apr–Jul 2024) at Philips India — Managed releases, resolved 41/48 customer escalations\n• **Software Engineer II** (Oct 2021–Mar 2024) at Philips India — BBraun Doselink+ integration with PICiX, socket programming, 300+ NLS IDs/quarter\n• **Software Engineer I** (Jul 2019–Sep 2021) at Philips India — 15-18 embedded drivers for medical devices using C++, C#, ACE Framework\n• **Intern** (Jan–Jul 2019) at Philips India — E-Task module for Remote Monitoring Centers`,
+      projects: `Featured projects include:\n\n• **Wi-Fi IOP Framework Tool** — Validates IoT device compatibility across 100+ routers, reduced manual testing by 40% (Java, Maven, BDD)\n• **Matter Virtual Node Simulator** — Emulates Matter IoT devices, accelerated release by 4 weeks (Python, C++, MQTT)\n• **BLE Manager Tool** — Unified BLE device management desktop tool (Python, PyQt5, bleak)\n• **IHE Driver (LAN) – PICiX** — BBraun Doselink+ integration using TCP/IP in C#, HL7 & IHE PCD compliant\n• **Network Manager Tool** — Windows simulator for early functional testing (C#, .NET 4.8, RS232, MQTT)\n• **EC10 & EC40 Drivers** — 15+ medical device serial drivers with custom simulators (C++, ACE Framework)`,
+      contact: `You can reach Shubham through:\n\n• **Email:** shubham.kesarwani35@gmail.com\n• **LinkedIn:** linkedin.com/in/shubhamkesarwani35\n• **Phone:** +91-8381908975\n• **Location:** Bengaluru, India\n\nOr use the contact form on this page!`,
+      about: `Shubham Kesarwani is a Lead Engineer with 6+ years of experience in Embedded Device Driver and Application Development. He specializes in C++, C#, .NET, Python, and Java, with expertise in IoT Smart Home and Healthcare sectors. He holds an MCA from NIT Karnataka Surathkal (CGPA: 9.0/10) and has been consistently rated 'Exceeds Expectations' at Philips.`,
+      role: `Shubham currently serves as an **Advance Engineer I** at Resideo Smart Home Technologies — building tools that bridge smart home IoT devices and application interfaces. Previously at Philips, he led customer escalations, driver development for medical devices, and integration projects spanning healthcare standards like HL7 and IHE PCD.`,
+      education: `Shubham's education:\n\n• **MCA** — National Institute of Technology Karnataka, Surathkal (2016–2019) — CGPA: 9.0/10\n• **BCA** — University of Allahabad (2013–2016) — 75%\n\n**Achievements:**\n• AIR-120 in NIMCET 2016\n• Developed nimcet.in, used by multiple NITs\n• Event Head for IGNITE tech fest at NIT Surathkal\n• Recognized for Philips values: Customer First, Take Ownership, Inspire & Improve`,
+      default: `Great question! Here's what I can help with:\n\n• **Skills** — Technologies & frameworks Shubham uses\n• **Experience** — Career journey & achievements\n• **Projects** — Featured work & case studies\n• **Contact** — How to reach Shubham\n• **Education** — Academic background & achievements\n\nJust ask about any of these topics!`
+    };
+
+    function matchResponse(msg) {
+      const m = msg.toLowerCase();
+      if (/skill|tech|stack|framework|language|tool|protocol/.test(m)) return botKB.skills;
+      if (/experience|career|work|job|company|year|history|philips|resideo/.test(m)) return botKB.experience;
+      if (/project|portfolio|built|driver|simulator|ble|matter|ihe|wifi|iop|network manager/.test(m)) return botKB.projects;
+      if (/contact|email|linkedin|reach|hire|connect|phone/.test(m)) return botKB.contact;
+      if (/about|who|background|bio|intro/.test(m)) return botKB.about;
+      if (/role|lead|position|title|what do/.test(m)) return botKB.role;
+      if (/education|degree|college|university|nit|mca|bca|nimcet|achievement/.test(m)) return botKB.education;
+      if (/hello|hi|hey|sup|yo/.test(m)) return `Hey! 👋 I'm happy to help. Ask me about Shubham's skills, experience, projects, education, or how to contact him!`;
+      if (/thank|thanks|thx/.test(m)) return `You're welcome! 😊 Feel free to ask anything else or use the contact form to reach out directly.`;
+      return botKB.default;
+    }
+
+    function addMessage(text, type) {
+      const div = document.createElement('div');
+      div.className = `chat-msg chat-msg--${type}`;
+      div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'chat-typing';
+      div.id = 'typingIndicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTyping() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    function handleSend(text) {
+      const msg = (text || chatInput.value).trim();
+      if (!msg) return;
+      addMessage(msg, 'user');
+      chatInput.value = '';
+      chatSuggestions.style.display = 'none';
+      showTyping();
+      const delay = 600 + Math.random() * 800;
+      setTimeout(() => {
+        removeTyping();
+        addMessage(matchResponse(msg), 'bot');
+      }, delay);
+    }
+
+    chatSend.addEventListener('click', () => handleSend());
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSend();
+    });
+    chatSuggestions.querySelectorAll('.chat-suggestion').forEach(btn => {
+      btn.addEventListener('click', () => handleSend(btn.dataset.msg));
+    });
+  </script>
 </body>
 </html>

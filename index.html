@@ -831,24 +831,29 @@
             </div>
           </div>
         </div>
-        <form class="contact__form" onsubmit="event.preventDefault(); alert('Message sent! I\'ll get back to you soon.');">
+        <form class="contact__form" id="contactForm">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+          <input type="hidden" name="subject" value="New Portfolio Contact from Website" />
+          <input type="hidden" name="from_name" value="Portfolio Contact Form" />
+          <input type="checkbox" name="botcheck" style="display:none" />
           <div class="form__group">
             <label class="form__label" for="name">Full Name</label>
-            <input class="form__input" type="text" id="name" placeholder="John Doe" required />
+            <input class="form__input" type="text" id="name" name="name" placeholder="John Doe" required />
           </div>
           <div class="form__group">
             <label class="form__label" for="email">Email Address</label>
-            <input class="form__input" type="email" id="email" placeholder="john@example.com" required />
+            <input class="form__input" type="email" id="email" name="email" placeholder="john@example.com" required />
           </div>
           <div class="form__group">
             <label class="form__label" for="subject">Subject</label>
-            <input class="form__input" type="text" id="subject" placeholder="Project Consultation" />
+            <input class="form__input" type="text" id="subject" name="message_subject" placeholder="Project Consultation" />
           </div>
           <div class="form__group">
             <label class="form__label" for="message">Message</label>
-            <textarea class="form__textarea" id="message" placeholder="Tell me about your project..." required></textarea>
+            <textarea class="form__textarea" id="message" name="message" placeholder="Tell me about your project..." required></textarea>
           </div>
-          <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">&#9993; Send Message</button>
+          <button type="submit" class="btn btn--primary" id="submitBtn" style="width:100%;justify-content:center">&#9993; Send Message</button>
+          <div id="formResult" style="margin-top:.75rem;text-align:center;font-size:.9rem;display:none"></div>
         </form>
       </div>
     </div>
@@ -933,6 +938,44 @@
         nav.style.padding = '';
         nav.style.boxShadow = '';
       }
+    });
+
+    // ===== Contact Form (Web3Forms) =====
+    const contactForm = document.getElementById('contactForm');
+    const formResult = document.getElementById('formResult');
+    const submitBtn = document.getElementById('submitBtn');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '&#9203; Sending...';
+      formResult.style.display = 'none';
+
+      try {
+        const formData = new FormData(contactForm);
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          formResult.style.display = 'block';
+          formResult.style.color = 'var(--clr-accent-2)';
+          formResult.textContent = '\u2705 Message sent successfully! I\u2019ll get back to you soon.';
+          contactForm.reset();
+        } else {
+          throw new Error(data.message || 'Something went wrong');
+        }
+      } catch (err) {
+        formResult.style.display = 'block';
+        formResult.style.color = 'var(--clr-accent-3)';
+        formResult.textContent = '\u274c Failed to send. Please email me directly at shubham.kesarwani35@gmail.com';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '&#9993; Send Message';
+      setTimeout(() => { formResult.style.display = 'none'; }, 6000);
     });
 
     // ===== Dark / Light Theme Toggle =====
